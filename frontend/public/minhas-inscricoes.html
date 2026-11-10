@@ -6,18 +6,22 @@
 <style>
 :root{--g:#1172db;--gd:#0b4f9c;--ink:#0b4f9c;--bd:#e6f0e9;--mut:#6b7a90;--bg:#eef5fd}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:#1f2a3a}
-.wrap{max-width:1032px;margin:28px auto;padding:0 16px}
-.card{background:#fff;border:1px solid var(--bd);border-radius:18px;box-shadow:0 6px 22px rgba(23,52,92,.06);overflow:hidden;margin-bottom:22px}
+.wrap{max-width:1032px;margin:32px auto 48px;padding:0 20px;min-height:calc(100vh - 360px)}
+.page-head{background:linear-gradient(135deg,#0b4f9c 0%,#1172db 100%);border-radius:14px;padding:22px 28px;margin-bottom:24px;color:#fff;box-shadow:0 8px 20px rgba(17,114,219,.18)}
+.page-head h1{color:#fff;font-size:26px;font-weight:800;margin:0 0 4px;letter-spacing:-.3px}
+.page-head p{color:#dbe9ff;font-size:14px;margin:0;line-height:1.5}
+.card{background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 6px 22px rgba(23,52,92,.06);overflow:hidden;margin-bottom:22px}
 .edhead{background:#1172db;padding:14px 24px}.edhead h3{color:#fff!important;font-family:"OpenSans-Semibold",Helvetica,Arial,sans-serif}
 .edhead h3{margin:0;color:var(--ink);font-size:20px}
 .edbody{display:flex;gap:20px;padding:22px 24px;flex-wrap:wrap}
 .edbody img{width:150px;height:auto;border-radius:10px;flex:0 0 auto}
 .edtxt{font-size:15px;color:#2b3a4f;line-height:1.5}
-h1.t{color:var(--ink);font-size:26px;font-weight:800;margin:0 0 6px;padding:0 4px}
-.sub{color:var(--mut);font-size:14px;margin:0 0 16px;padding:0 4px}
+h1.t{display:none}
+.sub{display:none}
 /* --- Grid responsivo dos cards de inscrição --- */
-#lista{display:grid;grid-template-columns:1fr;gap:14px}
+#lista{display:grid;grid-template-columns:1fr;gap:14px;margin-top:4px}
 @media(min-width:720px){#lista{grid-template-columns:1fr 1fr}}
+#lista:empty{display:none}
 .insc{cursor:pointer;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 3px 10px rgba(23,52,92,.05);padding:14px 16px;transition:transform .15s ease,box-shadow .2s ease,border-color .2s;display:flex;flex-direction:column;gap:8px;position:relative}
 .insc:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(23,52,92,.12);border-color:var(--g)}
 .insc .top{display:flex;align-items:center;gap:10px;border-bottom:1px solid #eef1f4;padding-bottom:10px}
@@ -36,17 +40,21 @@ h1.t{color:var(--ink);font-size:26px;font-weight:800;margin:0 0 6px;padding:0 4p
 .insc .foot .concurso.cbmpe{background:#ffe8e0;color:#b03a1a}
 .insc .foot .valor{font-weight:800;color:var(--ink);font-size:14px}
 .insc .foot .arrow{color:var(--g);font-size:16px;font-weight:800}
-.busca{background:#fff;border:1px solid #ddd;border-radius:4px;padding:18px 20px;margin:0 0 18px}
-.busca label{display:block;font-weight:700;color:#17243a;margin-bottom:8px;font-size:14px}
+.busca{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:22px 24px;margin:0 0 20px;box-shadow:0 3px 10px rgba(23,52,92,.05)}
+.busca label{display:block;font-weight:700;color:#17243a;margin-bottom:10px;font-size:14px}
 .busca .f{display:flex;gap:10px;flex-wrap:wrap}
-.busca input{flex:1 1 220px;padding:12px 14px;border:1.5px solid #cdd5e1;border-radius:8px;font-size:16px}
-.busca button{background:#3576fb;color:#fff;border:0;border-radius:8px;padding:12px 26px;font-weight:700;font-size:15px;cursor:pointer}
-.busca button:hover{background:#1f5ad6}
+.busca input{flex:1 1 220px;padding:12px 14px;border:1.5px solid #cdd5e1;border-radius:10px;font-size:15px;transition:border-color .15s}
+.busca input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(17,114,219,.12)}
+.busca button{background:var(--g);color:#fff;border:0;border-radius:10px;padding:12px 28px;font-weight:700;font-size:14px;letter-spacing:.3px;cursor:pointer;text-transform:uppercase;transition:background .15s}
+.busca button:hover{background:var(--gd)}
 .busca .msg{margin-top:10px;font-size:14px;color:#c62828;display:none}
-.acoes-mi{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:28px}
+.empty-hint{text-align:center;color:var(--mut);background:#fff;border:1px dashed #cdd5e1;border-radius:12px;padding:30px 20px;margin:4px 0 8px;font-size:14px;line-height:1.55}
+.empty-hint strong{color:#17243a;display:block;margin-bottom:4px;font-size:15px}
+.acoes-mi{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
 .acoes-mi .back{margin-top:0!important}
-.back.nova{background:#3576fb!important;color:#fff!important;border-color:#3576fb!important}
-.back{display:inline-block;margin-top:18px;background:#fff;border:1.6px solid #cdd5e1;color:#334155;border-radius:12px;padding:13px 26px;font-weight:700;cursor:pointer;text-decoration:none}
+.back.nova{background:var(--g)!important;color:#fff!important;border-color:var(--g)!important}
+.back.nova:hover{background:var(--gd)!important;border-color:var(--gd)!important}
+.back{display:inline-block;margin-top:0;background:#fff;border:1.6px solid #cdd5e1;color:#334155;border-radius:12px;padding:11px 24px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;transition:border-color .15s,color .15s}
 .back:hover{border-color:var(--g);color:var(--gd)}
 .card{border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
 .edhead{background:#1172db;border-bottom:0;padding:12px 18px}
@@ -57,6 +65,9 @@ h1.t{color:var(--ink);font-size:26px;font-weight:800;margin:0 0 6px;padding:0 4p
 @media(max-width:640px){
   html body:not(#vn_a):not(#vn_b):not(#vn_c):not(#vn_d) .wrap .card .edhead h3{font-size:22px!important}
   html body:not(#vn_a):not(#vn_b):not(#vn_c) .wrap{margin-bottom:0!important}
+  .wrap{min-height:auto}
+  .page-head{padding:18px 20px}
+  .page-head h1{font-size:22px}
   .insc{padding:12px 14px}
   .insc .top .numwrap .num{font-size:15px}
   .insc .body .nome{font-size:13px}
@@ -68,8 +79,12 @@ h1.t{color:var(--ink);font-size:26px;font-weight:800;margin:0 0 6px;padding:0 4p
 }
 </style><style>html body .aocp-edital-card{width:auto!important;max-width:none!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}@media(max-width:767px){html body .vn-lgpd{text-align:left!important;padding:12px 14px!important;font-size:13px!important}}</style><link href="/vunesp/pages.css?v=9" rel="stylesheet"/><style>html.vn-wait body{opacity:0!important}html body{transition:opacity .15s ease}</style><script>document.documentElement.classList.add("vn-wait");setTimeout(function(){document.documentElement.classList.remove("vn-wait")},2500);</script><style>@media(max-width:767px){html body:not(#vn_a):not(#vn_b) .Miolo,html body:not(#vn_a):not(#vn_b) .wrap{padding-left:8px!important;padding-right:8px!important;margin-left:0!important;margin-right:0!important;max-width:none!important}html body:not(#vn_a):not(#vn_b) #pgInformacoes,html body:not(#vn_a):not(#vn_b) .blocoPadrao .dados,html body:not(#vn_a):not(#vn_b) #TopoInformacoes{padding-left:0!important;padding-right:0!important;margin-left:0!important;margin-right:0!important}html body:not(#vn_a):not(#vn_b) .blocoPadrao{padding-left:12px!important;padding-right:12px!important;margin-left:0!important;margin-right:0!important;max-width:none!important}html body:not(#vn_a):not(#vn_b) .wrap .insc,html body:not(#vn_a):not(#vn_b) #lista>div{padding-left:14px!important;padding-right:14px!important}}</style><link rel="stylesheet" href="/assets/mobile.css?v=3"></head><body>
 <div class="wrap">
+<div class="page-head" data-testid="page-head">
+<h1>Minhas inscrições</h1>
+<p id="sub-txt">Esta é a inscrição feita neste navegador. Clique nela para ver os detalhes e o pagamento.</p>
+</div>
 <h1 class="t">Minhas inscrições</h1>
-<p class="sub" id="sub-txt">Consulte sua inscrição pelo CPF.</p>
+<p class="sub" id="sub-txt-legacy">Consulte sua inscrição pelo CPF.</p>
 <form class="busca" data-testid="busca-cpf-form" id="busca-cpf">
 <label for="cpf-busca">CPF do candidato</label>
 <div class="f"><input data-testid="busca-cpf-input" id="cpf-busca" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" required=""/><button data-testid="busca-cpf-btn" type="submit">Consultar</button></div>
