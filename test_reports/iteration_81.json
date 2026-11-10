@@ -1,0 +1,27 @@
+{
+  "summary": "Frontend-only visual/layout test of /minhas-inscricoes.html at 1400x900 (Playwright, getBoundingClientRect). All 3 requested checks PASS. Empty state: blue .page-head (linear-gradient 135deg #0b4f9c->#1172db) with white h1 'Minhas inscrições' (rgb 255,255,255) and light subtitle (rgb 219,233,255); CPF form .busca visible; Voltar bottom=457px, footer (#vunesp-footer-host) top=692px -> 235px gap. With planted inscricao_dados: .insc card shows Nº 2026532611, DONAS TESTANDO, CPF 188.815.326-11, cargo PROFESSOR NÍVEL II..., R$ 130,00, badge PENDENTE DE PAGAMENTO; busca hidden; '← Voltar' and '+ Nova Inscrição' visible; buttons bottom=519.5px vs footer top=692px -> 172px gap. No overlap.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "page-head subtitle (#sub-txt)", "issue": "In empty state (no inscrição in localStorage) the subtitle still says 'Esta é a inscrição feita neste navegador. Clique nela para ver os detalhes e o pagamento.' although there is no card - misleading. Default text in HTML should be 'Consulte sua inscrição pelo CPF.' (the JS already overrides it when an inscrição exists).", "selector": "#sub-txt", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "minhas-inscricoes empty state", "issues": ["Gap between .busca form (bottom 347px) and Voltar (top 414px) is ~67px, larger than other spacings, caused by hidden #outro-cpf link + stray <br/> plus .acoes-mi margin-top:24px. Removing the <br/> would tighten it."]},
+      {"screen": "minhas-inscricoes with card", "issues": ["Local fallback card reads d.__vaga_label / d.__taxa; if /api/inscricao/lista fails, cargo shows only '529' and valor '-' (keys VAGA_LABEL/VALOR are not read). In this test the API returned data so it rendered fine."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Change default #sub-txt text to 'Consulte sua inscrição pelo CPF.' for empty state (LOW)",
+    "Optional: remove <br/> after #outro-cpf to even out spacing above .acoes-mi",
+    "Optional: fallback card should also read VAGA_LABEL / VALOR when __vaga_label/__taxa absent"
+  ],
+  "critical_code_review_comments": ["Hidden legacy h1.t / p.sub duplicates kept in DOM (display:none) - harmless but dead markup", "isCbm ternaries produce identical values on both branches (dead logic)"],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100% of requested checks"},
+  "seed_data_creation": "Only browser localStorage key inscricao_dados in the Playwright session; no DB data created.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Footer host is #vunesp-footer-host (top ~692px at 1400x900). .page-head data-testid='page-head'. Measured gaps: empty 235px, with card 172px."
+}
