@@ -18,12 +18,14 @@ Ver `/app/memory/test_credentials.md`.
 - Cor primária: Vermelho IBGP `#a9302a`
 
 ## Alterações recentes
-### 10/Nov/2026 — Campo "Certame" em dados-inscricao.html
+### 10/Nov/2026 — Campo "Certame" em dados-inscricao.html + detalhes da vaga
 - `seduc/concurso.js` reescrito: dois editais estruturados (`edital_24_educacao` com 37 cargos e `edital_25_saude` com 329 cargos extraídos de `edital-24.html` / `edital-25.html`).
 - Campo auto-injetado "Nível de escolaridade" trocado por seletor **CERTAME** (label `Certame`, `data-testid="select-certame"`).
-- Ao trocar o certame, VAGA é repopulada, textos `[data-c]` são re-renderizados (`titulo`, `edital_opt`, `edital_curto`) e `localStorage.concurso_sel` atualizado para as páginas seguintes.
-- Cache-buster `concurso.js?v=8` em todas as páginas que carregam o script.
-- Taxas continuam como placeholder `R$ 0,00` por cargo (aguardando valores reais).
+- Dropdown de Cargo mostra apenas `código - título` (sem valor).
+- Bloco **VAGA_DETALHES** renderizado abaixo do Cargo ao selecionar uma vaga, com: Cargo, Período de Inscrição, Data da Prova, Valor da Inscrição.
+- Valores Edital 25/2026 (Saúde) aplicados por padrão (AUXILIAR/MOTORISTA R$ 90, AGENTE/ASSISTENTE ADMINISTRATIVO/CUIDADOR/TÉCNICO R$ 105, nível superior saúde R$ 140). Educação mantém placeholder R$ 0,00.
+- Período fixo: `13/10/26 10:00 - 11/11/26 23:59`; Data da prova: `13/12/2026 14:45:00`.
+- Cache-buster `concurso.js?v=9` em todas as páginas que carregam o script.
 
 ### 10/Nov/2026 — Rebrand do painel admin (Curitiba → Porto Velho)
 - `donaspainel/index.html`: título `Painel — Concurso Porto Velho`; cache-buster do bundle atualizado para `?v=portovelho1`.
