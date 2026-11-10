@@ -753,7 +753,7 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 <p>Deseja concorrer às vagas destinadas a pessoas Trans ou Gênero Diverso? <span data-testid="c-vaga-trans" id="c-vaga-trans">—</span></p>
 <p>Para fins de desempate, exerceu/exerce a função de jurado (Art. 440 do CPP)? <span data-testid="c-jurado" id="c-jurado">—</span></p>
 <p>Necessidade de atendimento especial? <span data-testid="c-atendimento" id="c-atendimento">—</span></p>
-<p style="display:none;flex-direction:column;align-items:flex-start;gap:6px;" data-testid="c-atendimento-lista-wrap" id="c-atendimento-lista-wrap"><span style="color:#374151;font-weight:600;">Recursos solicitados</span><span data-testid="c-atendimento-lista" id="c-atendimento-lista" style="color:#1172db;font-weight:600;line-height:1.5;"></span></p>
+<p style="display:none;" data-testid="c-atendimento-lista-wrap" id="c-atendimento-lista-wrap"><span style="color:#374151;font-weight:400;">Recursos solicitados</span><span data-testid="c-atendimento-lista" id="c-atendimento-lista" style="color:#111827;font-weight:700;white-space:normal;text-align:right;line-height:1.5;"></span></p>
 </div><div style="margin-top:28px;">
 <button data-testid="btn-alterar-dados" id="btn-alterar" style="padding:12px 24px;background:#e5e7eb;border:1.5px solid #6b7280;color:#0a2540;font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;border-radius:6px;margin:0 8px 0 0;min-width:180px;height:44px;box-sizing:border-box;" type="button">Alterar Dados</button>
 <button data-testid="btn-confirmar-inscricao" id="btn-confirmar" onmouseout="this.style.background='#1172db';this.style.borderColor='#1172db';" onmouseover="this.style.background='#0b4f9c';this.style.borderColor='#0b4f9c';" style="padding:12px 24px;background:#1172db;color:#ffffff;border:1.5px solid #1172db;font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;border-radius:6px;transition:background .2s, border-color .2s;min-width:180px;height:44px;box-sizing:border-box;" type="button">Confirmar Inscrição</button>
@@ -873,7 +873,7 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
   if(listaWrap && listaEl){
     if(d.atendimento_especial){
       var sel = Object.keys(AE_LABELS).filter(function(k){ return !!d[k]; }).map(function(k){ return AE_LABELS[k]; });
-      if(sel.length){ listaEl.textContent = sel.join(' · '); listaWrap.style.display = 'flex'; }
+      if(sel.length){ listaEl.textContent = sel.join(' · '); listaWrap.style.display = ''; }
       else { listaWrap.style.display = 'none'; }
     } else { listaWrap.style.display = 'none'; }
   }
