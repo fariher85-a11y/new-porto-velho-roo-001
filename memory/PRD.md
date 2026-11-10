@@ -22,7 +22,8 @@ Ver `/app/memory/test_credentials.md`.
 - Substituído o checkbox único "É optante pela reserva de vagas" por fieldset **Destinação de Vagas** com 6 checkboxes independentes:
   `VAGA_PCD`, `VAGA_NEGROS`, `VAGA_QUILOMBOLA`, `VAGA_INDIGENA`, `VAGA_TRANS`, `FUNCAO_JURADO` (jurado para desempate — Art. 440 CPP).
 - Todos com `data-testid` (`chk-vaga-pcd`, `chk-vaga-negros`, `chk-vaga-quilombola`, `chk-vaga-indigena`, `chk-vaga-trans`, `chk-jurado`).
-- `confirmacao.html` passou a exibir uma linha SIM/NÃO para cada um dos 6 flags (+ atendimento especial), substituindo o antigo par c-pcd/c-atendimento.
+- **Atendimento Especial**: ao marcar "Sim" expande grid com 28 opções (Apoio para perna, Tempo adicional, LIBRAS, Prova Braile etc.), cada uma como checkbox `AE_*` com data-testid. Desmarcando "Sim", o grid some e todas as opções são limpas.
+- `confirmacao.html` passou a exibir uma linha SIM/NÃO para cada um dos 6 flags de destinação + atendimento especial. Quando atendimento = Sim, uma linha extra "Recursos solicitados" lista as acomodações escolhidas.
 - Persistência via FormData + loop de checkbox do form (`inscricao_dados` no localStorage) continua automático.
 
 ### 10/Nov/2026 — Campo "Certame" em dados-inscricao.html + detalhes da vaga

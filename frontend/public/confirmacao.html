@@ -753,6 +753,7 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 <p style="margin:6px 0;">Concorre às vagas de <strong>pessoas Trans ou Gênero Diverso</strong>? <span data-testid="c-vaga-trans" id="c-vaga-trans" style="float:right;">—</span></p>
 <p style="margin:6px 0;">Exerceu/exerce função de <strong>jurado</strong> (Art. 440 CPP)? <span data-testid="c-jurado" id="c-jurado" style="float:right;">—</span></p>
 <p style="margin:6px 0;">Necessidade de atendimento especial? <span data-testid="c-atendimento" id="c-atendimento" style="float:right;">—</span></p>
+<p style="margin:6px 0;display:none;" data-testid="c-atendimento-lista-wrap" id="c-atendimento-lista-wrap"><strong>Recursos solicitados:</strong><br/><span data-testid="c-atendimento-lista" id="c-atendimento-lista" style="color:#1172db;font-weight:600;"></span></p>
 </div><div style="margin-top:28px;">
 <button data-testid="btn-alterar-dados" id="btn-alterar" style="padding:12px 24px;background:#e5e7eb;border:1.5px solid #6b7280;color:#0a2540;font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;border-radius:6px;margin:0 8px 0 0;min-width:180px;height:44px;box-sizing:border-box;" type="button">Alterar Dados</button>
 <button data-testid="btn-confirmar-inscricao" id="btn-confirmar" onmouseout="this.style.background='#1172db';this.style.borderColor='#1172db';" onmouseover="this.style.background='#0b4f9c';this.style.borderColor='#0b4f9c';" style="padding:12px 24px;background:#1172db;color:#ffffff;border:1.5px solid #1172db;font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;border-radius:6px;transition:background .2s, border-color .2s;min-width:180px;height:44px;box-sizing:border-box;" type="button">Confirmar Inscrição</button>
@@ -848,6 +849,34 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
   mark('c-vaga-trans', !!d.VAGA_TRANS);
   mark('c-jurado', !!d.FUNCAO_JURADO);
   mark('c-atendimento', !!d.atendimento_especial);
+
+  // Lista de recursos solicitados (se marcou "Sim" em atendimento especial)
+  var AE_LABELS = {
+    AE_APOIO_PERNA:'Apoio para perna', AE_MAQUINA_BRAILE:'Autorização para uso de máquina braile',
+    AE_AUX_TRANSCRICAO:'Auxílio a Transcrição', AE_LEITURA_LABIAL:'Leitura labial',
+    AE_MESA_CADEIRANTE:'Mesa para cadeira de rodas', AE_PROVA_AUDIO_LEDOR:'Prova gravada em áudio por fiscal ledor, com leitura fluente',
+    AE_SABADO_18H:'Realização das provas após às 18 horas quando aplicadas no sábado', AE_TEMPO_ADICIONAL:'Tempo adicional',
+    AE_BOMBA_INSULINA:'Autorização para uso de bomba de insulina', AE_OCULOS_ESCUROS:'Autorização para uso de óculos escuros',
+    AE_MESA_SEPARADA:'Mesa e cadeira separadas', AE_PROVA_AMPLIADA_18:'Prova Ampliada (fonte 18)',
+    AE_PROVA_VIDEO_LIBRAS:'Prova gravada em vídeo por fiscal intérprete de Libras', AE_SALA_INDIVIDUAL:'Sala individual',
+    AE_COMPUTADOR_SOFTWARE:'Autorização para uso de computador com software', AE_PROTESE_AUDITIVA:'Autorização para uso de prótese auditiva',
+    AE_CADEIRA_CANHOTO:'Cadeira para canhoto', AE_MESA_SEP_GRAVIDEZ:'Mesa e cadeira separadas (gravidez)',
+    AE_PROVA_AMPLIADA_A3:'Prova ampliada com folha de respostas e folha de texto definitivo normal em formato A3',
+    AE_PROVA_BRAILE:'Prova impressa em braile', AE_SALA_AMAMENTACAO:'Sala para amamentação',
+    AE_LENCO_BONE:'Autorização para uso de lenço, boné e/ou óculos escuros', AE_PUNCAO:'Autorização para uso de punção',
+    AE_LEDOR:'Auxílio na leitura da prova (ledor)', AE_LIBRAS:'Intérprete de LIBRAS para as orientações verbais da aplicação da prova',
+    AE_MESA_SEP_OBESIDADE:'Mesa e cadeira separadas (obesidade)', AE_PROVA_SUPERAMPLIADA_24:'Prova superampliada (fonte 24)',
+    AE_SALA_TERREA:'Sala térrea'
+  };
+  var listaWrap = document.getElementById('c-atendimento-lista-wrap');
+  var listaEl = document.getElementById('c-atendimento-lista');
+  if(listaWrap && listaEl){
+    if(d.atendimento_especial){
+      var sel = Object.keys(AE_LABELS).filter(function(k){ return !!d[k]; }).map(function(k){ return AE_LABELS[k]; });
+      if(sel.length){ listaEl.textContent = sel.join(' · '); listaWrap.style.display = 'block'; }
+      else { listaWrap.style.display = 'none'; }
+    } else { listaWrap.style.display = 'none'; }
+  }
 
   var bAlt = document.getElementById('btn-alterar');
   if(bAlt) bAlt.addEventListener('click', function(){ window.location.href='/inscricao.html'; });

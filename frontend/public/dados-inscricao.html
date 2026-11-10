@@ -825,16 +825,86 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 </ul>
 <label class="description error"></label>
 </fieldset>
-<fieldset>
+<fieldset id="fs-atendimento-especial">
 <label>Necessidade de Atendimento Especial</label>
-<ul class="choice-list">
+<ul class="choice-list" style="list-style:none;padding:0;margin:0">
 <li>
-<input id="atendimento_especial" name="atendimento_especial" type="checkbox" value="TRUE"/> Sim
- <ul class="subchoice-hidden" id="atendimento_especial-list" style="display:none">
-</ul>
+<label style="display:flex;align-items:center;gap:8px;font-weight:400"><input data-testid="chk-atendimento-sim" id="atendimento_especial" name="atendimento_especial" type="checkbox" value="TRUE"/><span>Sim</span></label>
+<div class="subchoice-hidden" id="atendimento_especial-list" style="display:none;margin-top:12px;padding-top:12px;border-top:1px dashed #d1d5db">
+<div style="font-size:13px;color:#4b5563;margin-bottom:8px">Selecione quantas opções precisar:</div>
+<div id="atendimento-opcoes" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6px 18px;font-weight:400;font-size:13px;line-height:1.35"></div>
+</div>
 </li>
 </ul>
 </fieldset>
+<script>
+(function(){
+  var OPCOES = [
+    ['AE_APOIO_PERNA','Apoio para perna'],
+    ['AE_MAQUINA_BRAILE','Autorização para uso de máquina braile'],
+    ['AE_AUX_TRANSCRICAO','Auxílio a Transcrição'],
+    ['AE_LEITURA_LABIAL','Leitura labial'],
+    ['AE_MESA_CADEIRANTE','Mesa para cadeira de rodas'],
+    ['AE_PROVA_AUDIO_LEDOR','Prova gravada em áudio por fiscal ledor, com leitura fluente'],
+    ['AE_SABADO_18H','Realização das provas após às 18 horas quando aplicadas no sábado'],
+    ['AE_TEMPO_ADICIONAL','Tempo adicional'],
+    ['AE_BOMBA_INSULINA','Autorização para uso de bomba de insulina'],
+    ['AE_OCULOS_ESCUROS','Autorização para uso de óculos escuros'],
+    ['AE_MESA_SEPARADA','Mesa e cadeira separadas'],
+    ['AE_PROVA_AMPLIADA_18','Prova Ampliada (fonte 18)'],
+    ['AE_PROVA_VIDEO_LIBRAS','Prova gravada em vídeo por fiscal intérprete de Libras'],
+    ['AE_SALA_INDIVIDUAL','Sala individual'],
+    ['AE_COMPUTADOR_SOFTWARE','Autorização para uso de computador com software'],
+    ['AE_PROTESE_AUDITIVA','Autorização para uso de prótese auditiva'],
+    ['AE_CADEIRA_CANHOTO','Cadeira para canhoto'],
+    ['AE_MESA_SEP_GRAVIDEZ','Mesa e cadeira separadas (gravidez)'],
+    ['AE_PROVA_AMPLIADA_A3','Prova ampliada com folha de respostas e folha de texto definitivo normal em formato A3'],
+    ['AE_PROVA_BRAILE','Prova impressa em braile'],
+    ['AE_SALA_AMAMENTACAO','Sala para amamentação'],
+    ['AE_LENCO_BONE','Autorização para uso de lenço, boné e/ou óculos escuros'],
+    ['AE_PUNCAO','Autorização para uso de punção'],
+    ['AE_LEDOR','Auxílio na leitura da prova (ledor)'],
+    ['AE_LIBRAS','Intérprete de LIBRAS para as orientações verbais da aplicação da prova'],
+    ['AE_MESA_SEP_OBESIDADE','Mesa e cadeira separadas (obesidade)'],
+    ['AE_PROVA_SUPERAMPLIADA_24','Prova superampliada (fonte 24)'],
+    ['AE_SALA_TERREA','Sala térrea']
+  ];
+  function build(){
+    var host = document.getElementById('atendimento-opcoes');
+    if(!host || host.dataset.built) return;
+    host.dataset.built = '1';
+    host.innerHTML = OPCOES.map(function(o){
+      var slug = o[0].toLowerCase().replace(/_/g,'-');
+      return '<label style="display:flex;align-items:flex-start;gap:6px;cursor:pointer;padding:3px 0">'
+           + '<input data-testid="chk-' + slug + '" id="' + o[0] + '" name="' + o[0] + '" type="checkbox" value="TRUE" style="margin-top:3px"/>'
+           + '<span>' + o[1] + '</span></label>';
+    }).join('');
+    // Restaura seleções salvas depois que o grid é renderizado
+    try{
+      var saved = JSON.parse(localStorage.getItem('inscricao_dados') || '{}');
+      OPCOES.forEach(function(o){
+        var el = document.getElementById(o[0]);
+        if(el) el.checked = !!saved[o[0]];
+      });
+    }catch(e){}
+  }
+  function toggle(){
+    var cb = document.getElementById('atendimento_especial');
+    var box = document.getElementById('atendimento_especial-list');
+    if(!cb || !box) return;
+    if(cb.checked){ build(); box.style.display = 'block'; }
+    else {
+      box.style.display = 'none';
+      // Desmarca e persiste limpo
+      box.querySelectorAll('input[type=checkbox]').forEach(function(x){ x.checked = false; });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var cb = document.getElementById('atendimento_especial');
+    if(cb){ cb.addEventListener('change', toggle); toggle(); }
+  });
+})();
+</script>
 <fieldset>
 <label class="description error"></label>
 <label class="description decl-veracidade">
