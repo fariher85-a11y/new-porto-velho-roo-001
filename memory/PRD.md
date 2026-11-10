@@ -23,7 +23,8 @@ Ver `/app/memory/test_credentials.md`.
 - Campo auto-injetado "Nível de escolaridade" trocado por seletor **CERTAME** (label `Certame`, `data-testid="select-certame"`).
 - Dropdown de Cargo mostra apenas `código - título` (sem valor).
 - Bloco **VAGA_DETALHES** renderizado abaixo do Cargo ao selecionar uma vaga, com: Cargo, Período de Inscrição, Data da Prova, Valor da Inscrição.
-- Valores Edital 25/2026 (Saúde) aplicados por padrão (AUXILIAR/MOTORISTA R$ 90, AGENTE/ASSISTENTE ADMINISTRATIVO/CUIDADOR/TÉCNICO R$ 105, nível superior saúde R$ 140). Educação mantém placeholder R$ 0,00.
+- Valores Edital 25/2026 (Saúde) aplicados por padrão (AUXILIAR/MOTORISTA R$ 90, AGENTE/ASSISTENTE ADMINISTRATIVO/CUIDADOR/TÉCNICO R$ 105, nível superior saúde R$ 140).
+- Valores Edital 24/2026 (Educação) aplicados (AGENTE DE SECRETARIA ESCOLAR R$ 90, demais cargos R$ 130).
 - Período fixo: `13/10/26 10:00 - 11/11/26 23:59`; Data da prova: `13/12/2026 14:45:00`.
 - Cache-buster `concurso.js?v=9` em todas as páginas que carregam o script.
 
