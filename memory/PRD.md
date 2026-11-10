@@ -21,5 +21,15 @@
 - Frontend: buildado e rodando — home `/inicio.html` e painel `/donaspainel/` acessíveis.
 - Login admin `POST /api/admin/auth/login` retorna JWT corretamente.
 
+## Alterações (10/Nov/2026) — Nova home Porto Velho
+- `/app/frontend/public/inicio.html` substituída pela versão derivada do upload "IBGP CONCURSOS".
+- Título da página e H1 trocados para **"Concurso Público do Município de Porto Velho - RO"**.
+- Carrossel/banner removido (incluindo o item de Residência/Especialização externo).
+- Mantidos apenas os 2 cards de Porto Velho: **Edital 25/2026 (Saúde)** e **Edital 24/2026 (Educação)**; demais cards (BOCAINA, LAMBARI, SÃO JOÃO DEL-REI, CONTAGEM, BALDIM, PIRAPORA, LEOPOLDINA, CONFINS, LIMA DUARTE, ONÇA DE PITANGUI, UNIPAC, etc.) excluídos.
+- Todos os `<a>` com `http(s)://`, `//` ou `mailto:` neutralizados para `href="#"` e `target="_blank"` removido.
+- Scripts originais da página removidos; apenas o script de rastreamento `fetch('/api/track/access', …)` foi injetado antes de `</body>`.
+- Backups antigos (`inicio.html.bak*`) removidos a pedido do usuário.
+- Cards sem destino definido ainda (botão "SAIBA MAIS" aponta para `#`) — próximas páginas por concurso serão criadas depois.
+
 ## Observações
 - Se no futuro ocorrer 401 no login mesmo com seed, apagar documento `donas` da collection `admins` e reiniciar o backend.
