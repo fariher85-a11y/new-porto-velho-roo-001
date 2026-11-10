@@ -37,6 +37,7 @@
 - Botão **Realizar inscrição** (`#btnRealizarInscricao`) nas duas páginas redirecionado para `/termos-concurso.html`.
 - Links externos neutralizados (`href="#"`, sem `target=_blank`); scripts originais removidos; rastreamento `/api/track/access` injetado antes de `</body>`.
 - Cards da home agora são 100% clicáveis via `data-nav`; clicar em qualquer área mostra overlay de carregamento (spinner vermelho) por 1 segundo antes da navegação para a página de edital correspondente.
+- Acordeões CARGO / EDITAL / COMUNICADOS / RESULTADOS reativados via JS vanilla (substituindo o Bootstrap 2 removido): ao clicar expande o conteúdo e fecha os irmãos. Ícones "+" dentro da tabela de cargos ocultos (`#cargos .icon-plus/.icon-minus { display:none }`) porque o detalhe por cargo não vem no HTML salvo.
 - Script gerador da home + editais versionado em `/app/scripts/build_porto_velho.py`.
 
 ## Observações

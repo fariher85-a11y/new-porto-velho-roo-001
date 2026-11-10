@@ -262,4 +262,39 @@ document.addEventListener('click', function(e){
   setTimeout(function(){ window.location.href = url; }, 1000);
 });
 </script>
+
+<style>
+#conteudo .accordion-body.collapse{display:none;height:auto!important}
+#conteudo .accordion-body.collapse.open{display:block}
+#conteudo .accordion-toggle{cursor:pointer}
+/* Hide per-cargo +/- icons since detail data isn't included in the saved page */
+#cargos .icon-plus,#cargos .icon-minus{display:none!important}
+</style>
+<script>
+document.addEventListener('click', function(e){
+  var t = e.target.closest && e.target.closest('.accordion-toggle');
+  if(!t) return;
+  e.preventDefault();
+  var href = t.getAttribute('href') || '';
+  if(href.charAt(0) !== '#') return;
+  var body = document.querySelector(href);
+  if(!body) return;
+  // close siblings (parent accordion behavior)
+  var parent = t.getAttribute('data-parent');
+  if(parent){
+    var scope = document.querySelector(parent);
+    if(scope){
+      scope.querySelectorAll('.accordion-body.collapse.open').forEach(function(x){
+        if(x !== body) x.classList.remove('open');
+      });
+      scope.querySelectorAll('.accordion-toggle').forEach(function(x){
+        if(x !== t) x.classList.add('collapsed');
+      });
+    }
+  }
+  body.classList.toggle('open');
+  body.style.height = '';
+  t.classList.toggle('collapsed', !body.classList.contains('open'));
+});
+</script>
 <script>(function(){try{var v=localStorage.getItem('visitor_id');if(!v){v='v_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10);localStorage.setItem('visitor_id',v);}fetch('/api/track/access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,user_agent:navigator.userAgent,extra:{visitor_id:v}})}).catch(function(){});}catch(e){}})();</script></body></html>

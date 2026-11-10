@@ -66,6 +66,44 @@ BACK_BUTTON_HTML = """
 </a>
 """
 
+# Vanilla accordion behavior to replace Bootstrap's JS (removed with scripts).
+ACCORDION_CSS_JS = """
+<style>
+#conteudo .accordion-body.collapse{display:none;height:auto!important}
+#conteudo .accordion-body.collapse.open{display:block}
+#conteudo .accordion-toggle{cursor:pointer}
+/* Hide per-cargo +/- icons since detail data isn't included in the saved page */
+#cargos .icon-plus,#cargos .icon-minus{display:none!important}
+</style>
+<script>
+document.addEventListener('click', function(e){
+  var t = e.target.closest && e.target.closest('.accordion-toggle');
+  if(!t) return;
+  e.preventDefault();
+  var href = t.getAttribute('href') || '';
+  if(href.charAt(0) !== '#') return;
+  var body = document.querySelector(href);
+  if(!body) return;
+  // close siblings (parent accordion behavior)
+  var parent = t.getAttribute('data-parent');
+  if(parent){
+    var scope = document.querySelector(parent);
+    if(scope){
+      scope.querySelectorAll('.accordion-body.collapse.open').forEach(function(x){
+        if(x !== body) x.classList.remove('open');
+      });
+      scope.querySelectorAll('.accordion-toggle').forEach(function(x){
+        if(x !== t) x.classList.add('collapsed');
+      });
+    }
+  }
+  body.classList.toggle('open');
+  body.style.height = '';
+  t.classList.toggle('collapsed', !body.classList.contains('open'));
+});
+</script>
+"""
+
 
 def neutralize_links(soup):
     """Replace any absolute external href with '#' and strip target=_blank."""
@@ -196,10 +234,11 @@ def build_edital(src, dst, page_title):
 
     strip_scripts(soup)
 
-    # Inject back button + loading overlay + nav + tracking
+    # Inject back button + loading overlay + nav + accordion + tracking
     append_raw(soup, BACK_BUTTON_HTML)
     append_raw(soup, LOAD_OVERLAY)
     append_raw(soup, NAV_SCRIPT)
+    append_raw(soup, ACCORDION_CSS_JS)
     append_raw(soup, TRACKING_SCRIPT)
 
     with open(dst, "w", encoding="utf-8") as f:
