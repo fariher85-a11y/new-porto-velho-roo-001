@@ -18,6 +18,13 @@ Ver `/app/memory/test_credentials.md`.
 - Cor primária: Vermelho IBGP `#a9302a`
 
 ## Alterações recentes
+### 10/Nov/2026 — Destinação de Vagas (dados-inscricao + confirmacao)
+- Substituído o checkbox único "É optante pela reserva de vagas" por fieldset **Destinação de Vagas** com 6 checkboxes independentes:
+  `VAGA_PCD`, `VAGA_NEGROS`, `VAGA_QUILOMBOLA`, `VAGA_INDIGENA`, `VAGA_TRANS`, `FUNCAO_JURADO` (jurado para desempate — Art. 440 CPP).
+- Todos com `data-testid` (`chk-vaga-pcd`, `chk-vaga-negros`, `chk-vaga-quilombola`, `chk-vaga-indigena`, `chk-vaga-trans`, `chk-jurado`).
+- `confirmacao.html` passou a exibir uma linha SIM/NÃO para cada um dos 6 flags (+ atendimento especial), substituindo o antigo par c-pcd/c-atendimento.
+- Persistência via FormData + loop de checkbox do form (`inscricao_dados` no localStorage) continua automático.
+
 ### 10/Nov/2026 — Campo "Certame" em dados-inscricao.html + detalhes da vaga
 - `seduc/concurso.js` reescrito: dois editais estruturados (`edital_24_educacao` com 37 cargos e `edital_25_saude` com 329 cargos extraídos de `edital-24.html` / `edital-25.html`).
 - Campo auto-injetado "Nível de escolaridade" trocado por seletor **CERTAME** (label `Certame`, `data-testid="select-certame"`).

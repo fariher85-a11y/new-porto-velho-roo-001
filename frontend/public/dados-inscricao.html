@@ -813,15 +813,16 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 })();
 </script>
 </fieldset>
-<fieldset>
-<label style="text-align:left">
-<strong>É optante pela reserva de vagas previstas no <span data-c="edital_curto">Editais nº 04, 05 e 06/2026</span> para pessoas com deficiência:</strong>
-<span id="PORTADOR_DEFICIENCIA-list" style="display:none">
- Para os optantes desta reserva de vagas, favor cumprir as exigências do Edital.
- </span>
-</label>
-<input id="PORTADOR_DEFICIENCIA" name="PORTADOR_DEFICIENCIA" style="margin-top:10px!important" type="checkbox" value="TRUE"/> Sim
- <br/>
+<fieldset id="fs-destinacao-vagas">
+<label class="description" style="font-weight:600;color:#1f2937;margin-bottom:10px;">Destinação de Vagas</label>
+<ul class="choice-list" style="list-style:none;padding:0;margin:0">
+<li style="padding:6px 0"><label style="display:flex;align-items:flex-start;gap:8px;font-weight:400"><input data-testid="chk-vaga-pcd" id="VAGA_PCD" name="VAGA_PCD" type="checkbox" value="TRUE"/><span>Deseja concorrer às vagas destinadas a candidatos com deficiência?</span></label></li>
+<li style="padding:6px 0"><label style="display:flex;align-items:flex-start;gap:8px;font-weight:400"><input data-testid="chk-vaga-negros" id="VAGA_NEGROS" name="VAGA_NEGROS" type="checkbox" value="TRUE"/><span>Deseja concorrer às vagas destinadas a candidatos negros (Pretos ou Pardos)?</span></label></li>
+<li style="padding:6px 0"><label style="display:flex;align-items:flex-start;gap:8px;font-weight:400"><input data-testid="chk-vaga-quilombola" id="VAGA_QUILOMBOLA" name="VAGA_QUILOMBOLA" type="checkbox" value="TRUE"/><span>Deseja concorrer a vagas destinada a REMANESCENTE DE QUILOMBOLA?</span></label></li>
+<li style="padding:6px 0"><label style="display:flex;align-items:flex-start;gap:8px;font-weight:400"><input data-testid="chk-vaga-indigena" id="VAGA_INDIGENA" name="VAGA_INDIGENA" type="checkbox" value="TRUE"/><span>Deseja concorrer a vagas destinada a INDÍGENAS?</span></label></li>
+<li style="padding:6px 0"><label style="display:flex;align-items:flex-start;gap:8px;font-weight:400"><input data-testid="chk-vaga-trans" id="VAGA_TRANS" name="VAGA_TRANS" type="checkbox" value="TRUE"/><span>Deseja concorrer a vagas destinada a pessoas Trans ou Gênero Diverso?</span></label></li>
+<li style="padding:6px 0"><label style="display:flex;align-items:flex-start;gap:8px;font-weight:400"><input data-testid="chk-jurado" id="FUNCAO_JURADO" name="FUNCAO_JURADO" type="checkbox" value="TRUE"/><span>Para fins de desempate, exerceu ou exerce a função de jurado, nos termos do Art. 440 do Código de Processo Penal?</span></label></li>
+</ul>
 <label class="description error"></label>
 </fieldset>
 <fieldset>
