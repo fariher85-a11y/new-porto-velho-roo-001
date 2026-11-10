@@ -199,7 +199,7 @@ append_raw(soup, NAV_SCRIPT)
 append_raw(soup, TRACKING_SCRIPT)
 
 with open(DST_HOME, "w", encoding="utf-8") as f:
-    f.write(str(soup))
+    f.write(str(soup).replace("11/11/26 17:00", "11/11/26 23:59"))
 print(f"[home] wrote {DST_HOME} cards={len(keepers)}")
 
 
@@ -242,7 +242,7 @@ def build_edital(src, dst, page_title):
     append_raw(soup, TRACKING_SCRIPT)
 
     with open(dst, "w", encoding="utf-8") as f:
-        f.write(str(soup))
+        f.write(str(soup).replace("11/11/26 17:00", "11/11/26 23:59"))
     print(f"[edital] wrote {dst}")
 
 
