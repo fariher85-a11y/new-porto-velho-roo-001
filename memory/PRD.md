@@ -40,5 +40,10 @@
 - Acordeões CARGO / EDITAL / COMUNICADOS / RESULTADOS reativados via JS vanilla (substituindo o Bootstrap 2 removido): ao clicar expande o conteúdo e fecha os irmãos. Ícones "+" dentro da tabela de cargos ocultos (`#cargos .icon-plus/.icon-minus { display:none }`) porque o detalhe por cargo não vem no HTML salvo.
 - Script gerador da home + editais versionado em `/app/scripts/build_porto_velho.py`.
 
+## Alterações (10/Nov/2026) — Deadline 23h59, modal de comunicado e botão de inscrição reposicionado
+- Horário de encerramento do período de inscrições trocado de **17:00** para **23:59** em `inicio.html`, `edital-24.html` e `edital-25.html`.
+- Modal "COMUNICADO AOS CANDIDATOS" com abertura automática ao carregar as páginas de edital, informando prazo final (11/11/2026 às 23h59) e com botões "× / OK, entendi".
+- Botão **Realizar inscrição** (`#btnRealizarInscricao`) reposicionado nos dois editais: agora aparece centralizado logo **acima** da sanfona **CARGO** (antes ficava depois dos acordeões). Implementado em `build_porto_velho.py` extraindo o botão e inserindo um wrapper `<div style="text-align:center;margin:20px 0 15px">` antes de `#accordion2`.
+
 ## Observações
 - Se no futuro ocorrer 401 no login mesmo com seed, apagar documento `donas` da collection `admins` e reiniciar o backend.

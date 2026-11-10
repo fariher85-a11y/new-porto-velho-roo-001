@@ -269,6 +269,25 @@ def build_edital(src, dst, page_title, modal_concurso, modal_edital):
         if btn_insc.has_attr("target"):
             del btn_insc["target"]
 
+    # Move the "Realizar inscrição" button to appear right above the "Cargo"
+    # accordion (centered). We lift it out of its current parent <div
+    # style="text-align:center"> (removing that wrapper) and re-insert a fresh
+    # centered wrapper immediately before the #accordion2 container.
+    accordion = soup.find(id="accordion2")
+    if btn_insc and accordion:
+        old_wrapper = btn_insc.parent
+        btn_insc.extract()
+        # If the old wrapper was the centering div and is now empty, drop it.
+        if old_wrapper and old_wrapper.name == "div" and not old_wrapper.get_text(strip=True) \
+                and not old_wrapper.find(True):
+            old_wrapper.decompose()
+        new_wrapper = soup.new_tag(
+            "div",
+            attrs={"style": "text-align:center;margin:20px 0 15px"},
+        )
+        new_wrapper.append(btn_insc)
+        accordion.insert_before(new_wrapper)
+
     neutralize_links(soup)
     # Re-apply inscrição destination after neutralization
     if btn_insc:
