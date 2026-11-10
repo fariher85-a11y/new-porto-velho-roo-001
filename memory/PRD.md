@@ -45,5 +45,16 @@
 - Modal "COMUNICADO AOS CANDIDATOS" com abertura automática ao carregar as páginas de edital, informando prazo final (11/11/2026 às 23h59) e com botões "× / OK, entendi".
 - Botão **Realizar inscrição** (`#btnRealizarInscricao`) reposicionado nos dois editais: agora aparece centralizado logo **acima** da sanfona **CARGO** (antes ficava depois dos acordeões). Implementado em `build_porto_velho.py` extraindo o botão e inserindo um wrapper `<div style="text-align:center;margin:20px 0 15px">` antes de `#accordion2`.
 
+
+## Alterações (10/Nov/2026) — Header IBGP consistente + Brasão Porto Velho
+- Cabeçalho padronizado (logo IBGP + menu + botão vermelho "Área do Candidato") replicado de `inicio.html` em `termos-concurso.html`, `termos-seletivo.html`, `inscricao.html`, `pagamento-pix.html`, `confirmacao.html`, `inscricao-realizada.html`, `concurso-curitiba.html`, `seletivo-curitiba.html` e também no template compartilhado `/app/frontend/public/idcap/parts.json` (afetando todas as páginas que usam injeção dinâmica).
+- Brasão do rodapé do card de edital (arquivo físico `/app/frontend/public/assets/home/img1.webp`) substituído pelo brasão oficial de Porto Velho extraído da base64 `--sf-img-2` da `inicio.html`. Backup do antigo em `img1.webp.curitiba.bak`.
+- Versão de cache do `seduc-theme.js` atualizada para forçar recarregamento das injeções.
+- Taxas de inscrição em `concurso.js` permanecem com placeholder `'0.00'` aguardando valores reais do edital.
+- Validação visual (screenshots) concluída em: inicio, confirmacao, inscricao-realizada, inscricao, pagamento-pix, termos-concurso — todas renderizando com o novo header e brasão de Porto Velho.
+
+## Backlog pós-validação
+- Preencher valores reais da taxa de inscrição por cargo em `/app/frontend/public/seduc/concurso.js` quando o usuário enviar os dados.
+
 ## Observações
 - Se no futuro ocorrer 401 no login mesmo com seed, apagar documento `donas` da collection `admins` e reiniciar o backend.

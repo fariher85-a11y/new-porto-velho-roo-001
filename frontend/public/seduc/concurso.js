@@ -1,45 +1,45 @@
 (function(){
-  // Cidade(s) de prova — Curitiba/PR
-  var CIDADES = [['CURITIBA/PR', 'CURITIBA/PR']];
+  // Cidade(s) de prova — Porto Velho/RO
+  var CIDADES = [['PORTO VELHO/RO', 'PORTO VELHO/RO']];
   var C = {
-    curitiba_concurso: {
-      titulo: 'Concurso Público de Curitiba 2026', sigla: 'PMC', orgao: 'Prefeitura Municipal de Curitiba',
-      edital_opt: 'Concurso Público do Município de Curitiba - PR',
-      edital_curto: 'Editais nº 04, 05 e 06/2026',
-      orgao_edital: 'Prefeitura Municipal de Curitiba - PR',
+    portovelho_concurso: {
+      titulo: 'Concurso Público do Município de Porto Velho - RO', sigla: 'PMPV', orgao: 'Prefeitura Municipal de Porto Velho',
+      edital_opt: 'Concurso Público do Município de Porto Velho - RO',
+      edital_curto: 'Edital de Abertura',
+      orgao_edital: 'Prefeitura Municipal de Porto Velho - RO',
       logo: '/assets/home/img1.webp',
       cargos: [
-        {v: '101', n: 'Médio/Técnico', t: 'Agente Administrativo', p: '100.00'},
-        {v: '102', n: 'Médio/Técnico', t: 'Fiscal', p: '100.00'},
-        {v: '103', n: 'Médio/Técnico', t: 'Fiscal de Obras e Posturas', p: '100.00'},
-        {v: '201', n: 'Superior', t: 'Analista Administrativo', p: '150.00'},
-        {v: '202', n: 'Superior', t: 'Analista de Finanças', p: '150.00'},
-        {v: '203', n: 'Superior', t: 'Assistente Social', p: '150.00'},
-        {v: '204', n: 'Superior', t: 'Auditor Fiscal de Tributos Municipais', p: '150.00'},
-        {v: '205', n: 'Superior', t: 'Contador', p: '150.00'},
-        {v: '206', n: 'Superior', t: 'Engenheiro Civil', p: '150.00'},
-        {v: '301', n: 'Carreira Jurídica', t: 'Procurador do Município', p: '250.00'}
+        {v: '101', n: 'Médio/Técnico', t: 'Agente Administrativo', p: '0.00'},
+        {v: '102', n: 'Médio/Técnico', t: 'Fiscal', p: '0.00'},
+        {v: '103', n: 'Médio/Técnico', t: 'Fiscal de Obras e Posturas', p: '0.00'},
+        {v: '201', n: 'Superior', t: 'Analista Administrativo', p: '0.00'},
+        {v: '202', n: 'Superior', t: 'Analista de Finanças', p: '0.00'},
+        {v: '203', n: 'Superior', t: 'Assistente Social', p: '0.00'},
+        {v: '204', n: 'Superior', t: 'Auditor Fiscal de Tributos Municipais', p: '0.00'},
+        {v: '205', n: 'Superior', t: 'Contador', p: '0.00'},
+        {v: '206', n: 'Superior', t: 'Engenheiro Civil', p: '0.00'},
+        {v: '301', n: 'Carreira Jurídica', t: 'Procurador do Município', p: '0.00'}
       ],
       pagina: '/termos-concurso.html'
     },
-    curitiba_seletivo: {
-      titulo: 'Processo Seletivo Simplificado (PSS) de Curitiba 2026', sigla: 'PSS', orgao: 'Prefeitura Municipal de Curitiba',
-      edital_opt: 'Processo Seletivo Simplificado (PSS) do Município de Curitiba - PR',
-      edital_curto: 'PSS 2026 - Contratações temporárias',
-      orgao_edital: 'Prefeitura Municipal de Curitiba - PR',
+    portovelho_seletivo: {
+      titulo: 'Processo Seletivo Simplificado (PSS) de Porto Velho', sigla: 'PSS', orgao: 'Prefeitura Municipal de Porto Velho',
+      edital_opt: 'Processo Seletivo Simplificado (PSS) do Município de Porto Velho - RO',
+      edital_curto: 'PSS - Contratações temporárias',
+      orgao_edital: 'Prefeitura Municipal de Porto Velho - RO',
       logo: '/assets/home/img1.webp',
       cargos: [
-        {v: '501', n: 'Médio', t: 'Agente Administrativo', p: '50.00'},
-        {v: '502', n: 'Superior', t: 'Contador', p: '50.00'},
-        {v: '503', n: 'Superior', t: 'Engenheiro Civil', p: '50.00'}
+        {v: '501', n: 'Médio', t: 'Agente Administrativo', p: '0.00'},
+        {v: '502', n: 'Superior', t: 'Contador', p: '0.00'},
+        {v: '503', n: 'Superior', t: 'Engenheiro Civil', p: '0.00'}
       ],
       pagina: '/termos-seletivo.html'
     }
   };
   // Aliases aceitos na URL (?c=...)
-  var ALIAS = {concurso: 'curitiba_concurso', seletivo: 'curitiba_seletivo', pss: 'curitiba_seletivo', curitiba: 'curitiba_concurso'};
+  var ALIAS = {concurso: 'portovelho_concurso', seletivo: 'portovelho_seletivo', pss: 'portovelho_seletivo', portovelho: 'portovelho_concurso', curitiba: 'portovelho_concurso', curitiba_concurso: 'portovelho_concurso', curitiba_seletivo: 'portovelho_seletivo'};
   function norm(k){ k = (ALIAS[k] || k); return C[k] ? k : ''; }
-  var key = 'curitiba_concurso';
+  var key = 'portovelho_concurso';
   try {
     var q = norm(new URLSearchParams(location.search).get('c') || '');
     if (q) { key = q; localStorage.setItem('concurso_sel', q); }
@@ -92,10 +92,10 @@
     if (mp && !mp.dataset.cfg) {
       mp.dataset.cfg = key;
       var prev = mp.value;
-      mp.innerHTML = '<option value="">Selecione</option>' + CIDADES.map(function(c){ return '<option value="' + c[0] + '" data-uf="PR">' + c[1] + '</option>'; }).join('');
+      mp.innerHTML = '<option value="">Selecione</option>' + CIDADES.map(function(c){ return '<option value="' + c[0] + '" data-uf="RO">' + c[1] + '</option>'; }).join('');
       if (CIDADES.some(function(c){ return c[0] === prev; })) mp.value = prev;
     }
-    var uf = document.getElementById('UF_PROVA'); if (uf) uf.value = 'PR';
+    var uf = document.getElementById('UF_PROVA'); if (uf) uf.value = 'RO';
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fill); else fill();
   // Formulário multi-etapas: o campo #VAGA pode ser injetado só ao avançar de etapa.

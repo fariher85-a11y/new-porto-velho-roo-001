@@ -18,8 +18,8 @@
   function payload(d, withForm){
     var extra = {
       nome: d.NOME || '', cpf: d.CPF || '', email: d.EMAIL || '',
-      concurso: d.__concurso || 'PMPE / CBMPE 2026 - Instituto AOCP',
-      edital: d.__edital || 'PMPE_26',
+      concurso: d.__concurso || 'Concurso Público do Município de Porto Velho - RO',
+      edital: d.__edital || 'PMPV_26',
       cargo_codigo: d.__cargo_codigo || '', cargo_titulo: d.__cargo_titulo || '',
       taxa: d.__taxa || '', valor: d.__valor || 90,
       protocolo: protocolo(d),

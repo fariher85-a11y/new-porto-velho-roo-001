@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta charset="utf-8"/>
 
-<title>Área do Candidato | Fundação FAFIPA</title>
+<title>Área do Candidato | IBGP</title>
 <link href="/seduc/seduc-theme.css?v=11" rel="stylesheet"/><script src="/seduc/seduc-theme.js?v=49"></script>
 <style>
 :root{--g:#1172db;--gd:#0b4f9c;--ink:#0b4f9c;--bd:#e6f0e9;--mut:#6b7a90;--bg:#eef5fd}
@@ -89,7 +89,7 @@ h1.t{color:var(--ink);font-size:26px;font-weight:800;margin:0 0 6px;padding:0 4p
     var insc=d.protocolo||('2026'+String(d.cpf||'').replace(/\D/g,'').slice(-6).padStart(6,'0'));
     var isCbm=(String(d.edital||'')==='CONCURSO_CURITIBA_26')||/CBMPE|Bombeiro/i.test(String(d.concurso||'')+' '+String(d.cargo||''));
     var logo=isCbm?'/assets/home/img1.webp':'/assets/home/img1.webp';
-    var cName=isCbm?'Concurso Público de Curitiba 2026':'Concurso Público de Curitiba 2026';
+    var cName=isCbm?'Concurso Público do Município de Porto Velho - RO':'Concurso Público do Município de Porto Velho - RO';
     var cClass=isCbm?'cbmpe':'';
     var pago=/pago|pag(a|o)|conclu/i.test(String(d.status||''));
     var badgeTxt=pago?'PAGO':'PENDENTE DE PAGAMENTO';
@@ -118,7 +118,7 @@ h1.t{color:var(--ink);font-size:26px;font-weight:800;margin:0 0 6px;padding:0 4p
   var inp=document.getElementById('cpf-busca'),msg=document.getElementById('busca-msg'),form=document.getElementById('busca-cpf');
   if(d&&d.CPF&&(d.__protocolo||d.__finalizado_ok)){
     var localCargo=String(d.__cargo_codigo||d.VAGA||''),localEdital=String(d.__edital||'CONCURSO_CURITIBA_26');
-    function cname(ed){return ed==='CONCURSO_CURITIBA_26'?'Concurso Público de Curitiba 2026':'Concurso Público de Curitiba 2026';}
+    function cname(ed){return 'Concurso Público do Município de Porto Velho - RO';}
     card({protocolo:d.__protocolo,nome:d.NOME,cpf:d.CPF,concurso:cname(localEdital),edital:localEdital,cargo:d.__vaga_label||d.VAGA,taxa:d.__taxa,status:d.__pix_status||d.__status||''},'/inscricao-realizada.html');
     var cpfD=String(d.CPF).replace(/\D/g,'');
     fetch('/api/inscricao/lista/'+cpfD).then(function(r){return r.ok?r.json():null;}).then(function(j){
@@ -156,7 +156,7 @@ h1.t{color:var(--ink);font-size:26px;font-weight:800;margin:0 0 6px;padding:0 4p
       if(!j||!j.items||!j.items.length){lista.innerHTML='';msg.textContent='Nenhuma inscrição encontrada para este CPF.';msg.style.display='block';return;}
       var fc=cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4');
       lista.innerHTML='';
-      j.items.forEach(function(it){ card({protocolo:it.protocolo,nome:it.nome,cpf:fc,concurso:it.edital==='CONCURSO_CURITIBA_26'?'Concurso Público de Curitiba 2026':'Concurso Público de Curitiba 2026',edital:it.edital,cargo:it.cargo_titulo,taxa:it.taxa,status:it.status||it.pix_status||''},'/pagamento-pix.html?cpf='+cpf+'&cargo='+encodeURIComponent(it.cargo_codigo)+'&edital='+encodeURIComponent(it.edital||'')); });
+      j.items.forEach(function(it){ card({protocolo:it.protocolo,nome:it.nome,cpf:fc,concurso:'Concurso Público do Município de Porto Velho - RO',edital:it.edital,cargo:it.cargo_titulo,taxa:it.taxa,status:it.status||it.pix_status||''},'/pagamento-pix.html?cpf='+cpf+'&cargo='+encodeURIComponent(it.cargo_codigo)+'&edital='+encodeURIComponent(it.edital||'')); });
     }).catch(function(){msg.textContent='Não foi possível consultar agora. Tente novamente.';msg.style.display='block';});
   });
 })();
