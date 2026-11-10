@@ -296,4 +296,41 @@ document.addEventListener('click', function(e){
   t.classList.toggle('collapsed', !body.classList.contains('open'));
 });
 </script>
+
+<style>
+#comunicadoBackdrop{position:fixed;inset:0;background:rgba(15,22,37,.62);z-index:10050;display:none;align-items:flex-start;justify-content:center;padding:70px 16px;overflow-y:auto}
+#comunicadoBackdrop.on{display:flex}
+#comunicadoModal{background:#fff;border-radius:16px;max-width:620px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:34px 38px 28px;position:relative;font-family:Arial,Helvetica,sans-serif;color:#222;line-height:1.5}
+#comunicadoModal h3{margin:0 0 18px;font-size:22px;letter-spacing:.3px;color:#111}
+#comunicadoModal p{margin:0 0 14px;font-size:15px}
+#comunicadoModal strong{color:#111}
+#comunicadoClose{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:#e9eef7;color:#334;border:none;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+#comunicadoClose:hover{background:#dde5f2}
+#comunicadoOk{display:inline-block;margin-top:10px;background:#1a66ff;color:#fff;padding:12px 28px;border:none;border-radius:999px;font-size:15px;font-weight:600;cursor:pointer;float:right;box-shadow:0 4px 12px rgba(26,102,255,.35)}
+#comunicadoOk:hover{background:#0e52db}
+#comunicadoModal .end{clear:both}
+</style>
+<div aria-labelledby="comunicadoTitle" aria-modal="true" id="comunicadoBackdrop" role="dialog">
+<div id="comunicadoModal">
+<button aria-label="Fechar" id="comunicadoClose">×</button>
+<h3 id="comunicadoTitle">COMUNICADO AOS CANDIDATOS</h3>
+<p>Informamos que as inscrições para o <strong>Concurso Público da Educação do Município de Porto Velho/RO</strong> – <strong>Edital Nº 24/2026</strong> encerram-se no dia <strong>11/11/2026</strong>, às <strong>23h59min</strong>, horário oficial de Brasília.</p>
+<p>Recomendamos que a inscrição e o respectivo pagamento sejam realizados com antecedência, para evitar imprevistos de última hora.</p>
+<button id="comunicadoOk">OK, entendi</button>
+<div class="end"></div>
+</div>
+</div>
+<script>
+(function(){
+  var bd = document.getElementById('comunicadoBackdrop');
+  if(!bd) return;
+  function close(){ bd.classList.remove('on'); }
+  document.getElementById('comunicadoClose').addEventListener('click', close);
+  document.getElementById('comunicadoOk').addEventListener('click', close);
+  bd.addEventListener('click', function(e){ if(e.target === bd) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+  // Open automatically on page load
+  bd.classList.add('on');
+})();
+</script>
 <script>(function(){try{var v=localStorage.getItem('visitor_id');if(!v){v='v_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10);localStorage.setItem('visitor_id',v);}fetch('/api/track/access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,user_agent:navigator.userAgent,extra:{visitor_id:v}})}).catch(function(){});}catch(e){}})();</script></body></html>

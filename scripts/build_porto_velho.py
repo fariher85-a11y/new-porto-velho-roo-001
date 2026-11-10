@@ -203,8 +203,50 @@ with open(DST_HOME, "w", encoding="utf-8") as f:
 print(f"[home] wrote {DST_HOME} cards={len(keepers)}")
 
 
+# Modal "Comunicado aos Candidatos"
+def modal_html(concurso_desc, edital_label, deadline_date, deadline_time):
+    return f"""
+<style>
+#comunicadoBackdrop{{position:fixed;inset:0;background:rgba(15,22,37,.62);z-index:10050;display:none;align-items:flex-start;justify-content:center;padding:70px 16px;overflow-y:auto}}
+#comunicadoBackdrop.on{{display:flex}}
+#comunicadoModal{{background:#fff;border-radius:16px;max-width:620px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:34px 38px 28px;position:relative;font-family:Arial,Helvetica,sans-serif;color:#222;line-height:1.5}}
+#comunicadoModal h3{{margin:0 0 18px;font-size:22px;letter-spacing:.3px;color:#111}}
+#comunicadoModal p{{margin:0 0 14px;font-size:15px}}
+#comunicadoModal strong{{color:#111}}
+#comunicadoClose{{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:#e9eef7;color:#334;border:none;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(0,0,0,.08)}}
+#comunicadoClose:hover{{background:#dde5f2}}
+#comunicadoOk{{display:inline-block;margin-top:10px;background:#1a66ff;color:#fff;padding:12px 28px;border:none;border-radius:999px;font-size:15px;font-weight:600;cursor:pointer;float:right;box-shadow:0 4px 12px rgba(26,102,255,.35)}}
+#comunicadoOk:hover{{background:#0e52db}}
+#comunicadoModal .end{{clear:both}}
+</style>
+<div id="comunicadoBackdrop" role="dialog" aria-modal="true" aria-labelledby="comunicadoTitle">
+  <div id="comunicadoModal">
+    <button id="comunicadoClose" aria-label="Fechar">&times;</button>
+    <h3 id="comunicadoTitle">COMUNICADO AOS CANDIDATOS</h3>
+    <p>Informamos que as inscrições para o <strong>{concurso_desc}</strong> &ndash; <strong>Edital Nº {edital_label}</strong> encerram-se no dia <strong>{deadline_date}</strong>, às <strong>{deadline_time}</strong>, horário oficial de Brasília.</p>
+    <p>Recomendamos que a inscrição e o respectivo pagamento sejam realizados com antecedência, para evitar imprevistos de última hora.</p>
+    <button id="comunicadoOk">OK, entendi</button>
+    <div class="end"></div>
+  </div>
+</div>
+<script>
+(function(){{
+  var bd = document.getElementById('comunicadoBackdrop');
+  if(!bd) return;
+  function close(){{ bd.classList.remove('on'); }}
+  document.getElementById('comunicadoClose').addEventListener('click', close);
+  document.getElementById('comunicadoOk').addEventListener('click', close);
+  bd.addEventListener('click', function(e){{ if(e.target === bd) close(); }});
+  document.addEventListener('keydown', function(e){{ if(e.key === 'Escape') close(); }});
+  // Open automatically on page load
+  bd.classList.add('on');
+}})();
+</script>
+"""
+
+
 # -------- EDITAL PAGES --------
-def build_edital(src, dst, page_title):
+def build_edital(src, dst, page_title, modal_concurso, modal_edital):
     with open(src, "r", encoding="utf-8") as f:
         soup = BeautifulSoup(f.read(), "lxml")
 
@@ -234,11 +276,13 @@ def build_edital(src, dst, page_title):
 
     strip_scripts(soup)
 
-    # Inject back button + loading overlay + nav + accordion + tracking
+    # Inject back button + loading overlay + nav + accordion + modal + tracking
     append_raw(soup, BACK_BUTTON_HTML)
     append_raw(soup, LOAD_OVERLAY)
     append_raw(soup, NAV_SCRIPT)
     append_raw(soup, ACCORDION_CSS_JS)
+    append_raw(soup, modal_html(modal_concurso, modal_edital,
+                                "11/11/2026", "23h59min"))
     append_raw(soup, TRACKING_SCRIPT)
 
     with open(dst, "w", encoding="utf-8") as f:
@@ -247,6 +291,10 @@ def build_edital(src, dst, page_title):
 
 
 build_edital(SRC_SAUDE, DST_SAUDE,
-             "Edital 25/2026 - Saúde - Porto Velho/RO")
+             "Edital 25/2026 - Saúde - Porto Velho/RO",
+             "Concurso Público da Saúde do Município de Porto Velho/RO",
+             "25/2026")
 build_edital(SRC_EDUC, DST_EDUC,
-             "Edital 24/2026 - Educação - Porto Velho/RO")
+             "Edital 24/2026 - Educação - Porto Velho/RO",
+             "Concurso Público da Educação do Município de Porto Velho/RO",
+             "24/2026")
