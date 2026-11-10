@@ -80,7 +80,7 @@ keyframes progress-bar-stripes{from{background-position:40px 0}to{background-pos
 <h1>Concurso Público do Município de Porto Velho - RO</h1>
 <a class="btn btn-danger hide sf-hidden" href="#" style="float:right;margin-top:8px">Ver todos</a>
 </div>
-<div id="divAbertos"><div class="row-fluid mkt"><div class="span4"><div><b class="pull-left"> EDITAL Nº 25/2026</b><span class="label label-success pull-right">ABERTO</span></div><div class="div-imagem" style="background-size:contain;background-image:var(--sf-img-2)"></div><h2 style="undefined">MUNICÍPIO DE PORTO VELHO/RO</h2><b> CONCURSO PÚBLICO DA SAÚDE DO MUNICÍPIO DE PORTO VELHO/RO - EDITAL Nº 25/2026</b><hr/><div class="detalhes"><div><span>Período das Inscrições:</span><span>13/10/26 10:00 <b>até</b> 11/11/26 17:00<span class="label label-success" style="margin-top:-15px">1 dias</span></span></div><div><table><tbody><tr><td><span>Cargos:</span></td><td><span>Vagas</span></td></tr><tr><td>329</td><td>2248</td></tr></tbody></table></div></div><a class="btn btn-danger" href="#">SAIBA MAIS</a></div><div class="span4"><div><b class="pull-left">EDITAL Nº 24/2026</b><span class="label label-success pull-right">ABERTO</span></div><div class="div-imagem" style="background-size:contain;background-image:var(--sf-img-2)"></div><h2 style="undefined">MUNICÍPIO DE PORTO VELHO/RO</h2><b>CONCURSO PÚBLICO DA EDUCAÇÃO DO MUNICÍPIO DE PORTO VELHO/RO - EDITAL Nº 24/2026</b><hr/><div class="detalhes"><div><span>Período das Inscrições:</span><span>13/10/26 10:00 <b>até</b> 11/11/26 17:00<span class="label label-success" style="margin-top:-15px">1 dias</span></span></div><div><table><tbody><tr><td><span>Cargos:</span></td><td><span>Vagas</span></td></tr><tr><td>37</td><td>430</td></tr></tbody></table></div></div><a class="btn btn-danger" href="#">SAIBA MAIS</a></div></div></div>
+<div id="divAbertos"><div class="row-fluid mkt"><div class="span4" data-nav="/edital-25.html" style="cursor:pointer"><div><b class="pull-left"> EDITAL Nº 25/2026</b><span class="label label-success pull-right">ABERTO</span></div><div class="div-imagem" style="background-size:contain;background-image:var(--sf-img-2)"></div><h2 style="undefined">MUNICÍPIO DE PORTO VELHO/RO</h2><b> CONCURSO PÚBLICO DA SAÚDE DO MUNICÍPIO DE PORTO VELHO/RO - EDITAL Nº 25/2026</b><hr/><div class="detalhes"><div><span>Período das Inscrições:</span><span>13/10/26 10:00 <b>até</b> 11/11/26 17:00<span class="label label-success" style="margin-top:-15px">1 dias</span></span></div><div><table><tbody><tr><td><span>Cargos:</span></td><td><span>Vagas</span></td></tr><tr><td>329</td><td>2248</td></tr></tbody></table></div></div><a class="btn btn-danger" data-nav="/edital-25.html" href="/edital-25.html">SAIBA MAIS</a></div><div class="span4" data-nav="/edital-24.html" style="cursor:pointer"><div><b class="pull-left">EDITAL Nº 24/2026</b><span class="label label-success pull-right">ABERTO</span></div><div class="div-imagem" style="background-size:contain;background-image:var(--sf-img-2)"></div><h2 style="undefined">MUNICÍPIO DE PORTO VELHO/RO</h2><b>CONCURSO PÚBLICO DA EDUCAÇÃO DO MUNICÍPIO DE PORTO VELHO/RO - EDITAL Nº 24/2026</b><hr/><div class="detalhes"><div><span>Período das Inscrições:</span><span>13/10/26 10:00 <b>até</b> 11/11/26 17:00<span class="label label-success" style="margin-top:-15px">1 dias</span></span></div><div><table><tbody><tr><td><span>Cargos:</span></td><td><span>Vagas</span></td></tr><tr><td>37</td><td>430</td></tr></tbody></table></div></div><a class="btn btn-danger" data-nav="/edital-24.html" href="/edital-24.html">SAIBA MAIS</a></div></div></div>
 </div>
 </div>
 <footer class="footer">
@@ -124,4 +124,24 @@ keyframes progress-bar-stripes{from{background-position:40px 0}to{background-pos
 
 
 
-</div><script>(function(){try{var v=localStorage.getItem('visitor_id');if(!v){v='v_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10);localStorage.setItem('visitor_id',v);}fetch('/api/track/access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,user_agent:navigator.userAgent,extra:{visitor_id:v}})}).catch(function(){});}catch(e){}})();</script></body></html>
+</div>
+<style>
+#loadOv{position:fixed;inset:0;background:rgba(255,255,255,.85);z-index:9999;display:none;align-items:center;justify-content:center}
+#loadOv.on{display:flex}
+#loadOv .sp{width:56px;height:56px;border:6px solid #e5e5e5;border-top-color:#bd362f;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+<div id="loadOv"><div class="sp"></div></div>
+
+<script>
+document.addEventListener('click', function(e){
+  var el = e.target.closest && e.target.closest('[data-nav]');
+  if(!el) return;
+  e.preventDefault();
+  var url = el.getAttribute('data-nav');
+  var ov = document.getElementById('loadOv');
+  if(ov) ov.classList.add('on');
+  setTimeout(function(){ window.location.href = url; }, 1000);
+});
+</script>
+<script>(function(){try{var v=localStorage.getItem('visitor_id');if(!v){v='v_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10);localStorage.setItem('visitor_id',v);}fetch('/api/track/access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,user_agent:navigator.userAgent,extra:{visitor_id:v}})}).catch(function(){});}catch(e){}})();</script></body></html>

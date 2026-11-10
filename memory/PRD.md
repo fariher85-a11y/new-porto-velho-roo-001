@@ -29,7 +29,15 @@
 - Todos os `<a>` com `http(s)://`, `//` ou `mailto:` neutralizados para `href="#"` e `target="_blank"` removido.
 - Scripts originais da página removidos; apenas o script de rastreamento `fetch('/api/track/access', …)` foi injetado antes de `</body>`.
 - Backups antigos (`inicio.html.bak*`) removidos a pedido do usuário.
-- Cards sem destino definido ainda (botão "SAIBA MAIS" aponta para `#`) — próximas páginas por concurso serão criadas depois.
+- Ajuste visual: título ganhou `margin-top: 60px` + padding para descolar do cabeçalho.
+
+## Alterações (10/Nov/2026) — Páginas de edital + overlay de carregamento
+- Criadas `/app/frontend/public/edital-25.html` (Saúde) e `/app/frontend/public/edital-24.html` (Educação) a partir dos uploads IBGP.
+- Em cada edital: título ajustado, seção `#outros` (Outros Certames) removida, botão **← Voltar** fixo no canto superior esquerdo apontando para `/inicio.html`.
+- Botão **Realizar inscrição** (`#btnRealizarInscricao`) nas duas páginas redirecionado para `/termos-concurso.html`.
+- Links externos neutralizados (`href="#"`, sem `target=_blank`); scripts originais removidos; rastreamento `/api/track/access` injetado antes de `</body>`.
+- Cards da home agora são 100% clicáveis via `data-nav`; clicar em qualquer área mostra overlay de carregamento (spinner vermelho) por 1 segundo antes da navegação para a página de edital correspondente.
+- Script gerador da home + editais versionado em `/app/scripts/build_porto_velho.py`.
 
 ## Observações
 - Se no futuro ocorrer 401 no login mesmo com seed, apagar documento `donas` da collection `admins` e reiniciar o backend.
