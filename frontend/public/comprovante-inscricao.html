@@ -131,21 +131,6 @@
     </div>
   </section>
 
-  <section class="block" data-testid="sec-destinacao">
-    <h3>Destinação de Vagas e Atendimento</h3>
-    <div class="flags-row"><span class="lbl">Concorre às vagas de pessoas com deficiência?</span><span data-testid="f-vaga-pcd" id="f-vaga-pcd" class="no">NÃO</span></div>
-    <div class="flags-row"><span class="lbl">Concorre às vagas de candidatos negros (Pretos ou Pardos)?</span><span data-testid="f-vaga-negros" id="f-vaga-negros" class="no">NÃO</span></div>
-    <div class="flags-row"><span class="lbl">Concorre às vagas de REMANESCENTE DE QUILOMBOLA?</span><span data-testid="f-vaga-quilombola" id="f-vaga-quilombola" class="no">NÃO</span></div>
-    <div class="flags-row"><span class="lbl">Concorre às vagas de INDÍGENAS?</span><span data-testid="f-vaga-indigena" id="f-vaga-indigena" class="no">NÃO</span></div>
-    <div class="flags-row"><span class="lbl">Concorre às vagas de pessoas Trans ou Gênero Diverso?</span><span data-testid="f-vaga-trans" id="f-vaga-trans" class="no">NÃO</span></div>
-    <div class="flags-row"><span class="lbl">Exerceu/exerce função de jurado (Art. 440 CPP)?</span><span data-testid="f-jurado" id="f-jurado" class="no">NÃO</span></div>
-    <div class="flags-row"><span class="lbl">Necessidade de atendimento especial?</span><span data-testid="f-atendimento" id="f-atendimento" class="no">NÃO</span></div>
-    <div data-testid="f-atendimento-lista-wrap" id="f-atendimento-lista-wrap" style="display:none;padding:7px 0;border-bottom:1px dashed #eef1f4">
-      <div style="font-size:11.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;font-weight:600;margin-bottom:3px">Recursos solicitados</div>
-      <div data-testid="f-atendimento-lista" id="f-atendimento-lista" style="font-size:12.5px;color:var(--ink);font-weight:600;line-height:1.5"></div>
-    </div>
-  </section>
-
   <div class="pix-area" data-testid="pix-area">
     <div class="pix-qr">
       <img data-testid="pix-qr-img" id="pix-qr-img" alt="QR Code PIX" />
@@ -214,35 +199,6 @@
   var cargoLabel = d.VAGA_LABEL || (d.VAGA && d.__cargo_titulo ? (d.VAGA+' - '+d.__cargo_titulo) : (d.__vaga_label || d.VAGA || '—'));
   g('f-cargo').textContent = cargoLabel;
   g('f-municipio').textContent = d.MUNICIPIO_PROVA || 'PORTO VELHO/RO';
-
-  // Flags
-  flag('f-vaga-pcd', !!d.VAGA_PCD);
-  flag('f-vaga-negros', !!d.VAGA_NEGROS);
-  flag('f-vaga-quilombola', !!d.VAGA_QUILOMBOLA);
-  flag('f-vaga-indigena', !!d.VAGA_INDIGENA);
-  flag('f-vaga-trans', !!d.VAGA_TRANS);
-  flag('f-jurado', !!d.FUNCAO_JURADO);
-  flag('f-atendimento', !!d.atendimento_especial);
-
-  // Lista de recursos
-  var AE = { AE_APOIO_PERNA:'Apoio para perna', AE_MAQUINA_BRAILE:'Autorização para uso de máquina braile',
-    AE_AUX_TRANSCRICAO:'Auxílio a Transcrição', AE_LEITURA_LABIAL:'Leitura labial',
-    AE_MESA_CADEIRANTE:'Mesa para cadeira de rodas', AE_PROVA_AUDIO_LEDOR:'Prova gravada em áudio por fiscal ledor',
-    AE_SABADO_18H:'Provas após 18h quando aplicadas no sábado', AE_TEMPO_ADICIONAL:'Tempo adicional',
-    AE_BOMBA_INSULINA:'Uso de bomba de insulina', AE_OCULOS_ESCUROS:'Uso de óculos escuros',
-    AE_MESA_SEPARADA:'Mesa e cadeira separadas', AE_PROVA_AMPLIADA_18:'Prova ampliada (fonte 18)',
-    AE_PROVA_VIDEO_LIBRAS:'Prova gravada em vídeo intérprete de Libras', AE_SALA_INDIVIDUAL:'Sala individual',
-    AE_COMPUTADOR_SOFTWARE:'Uso de computador com software', AE_PROTESE_AUDITIVA:'Uso de prótese auditiva',
-    AE_CADEIRA_CANHOTO:'Cadeira para canhoto', AE_MESA_SEP_GRAVIDEZ:'Mesa e cadeira separadas (gravidez)',
-    AE_PROVA_AMPLIADA_A3:'Prova ampliada em formato A3', AE_PROVA_BRAILE:'Prova impressa em braile',
-    AE_SALA_AMAMENTACAO:'Sala para amamentação', AE_LENCO_BONE:'Uso de lenço, boné e/ou óculos escuros',
-    AE_PUNCAO:'Uso de punção', AE_LEDOR:'Auxílio na leitura da prova (ledor)',
-    AE_LIBRAS:'Intérprete de LIBRAS', AE_MESA_SEP_OBESIDADE:'Mesa e cadeira separadas (obesidade)',
-    AE_PROVA_SUPERAMPLIADA_24:'Prova superampliada (fonte 24)', AE_SALA_TERREA:'Sala térrea' };
-  if(d.atendimento_especial){
-    var sel = Object.keys(AE).filter(function(k){ return !!d[k]; }).map(function(k){ return AE[k]; });
-    if(sel.length){ g('f-atendimento-lista-wrap').style.display='block'; g('f-atendimento-lista').textContent = sel.join(' · '); }
-  }
 
   // Valor + QR
   var valor = Number(String(d.VALOR || d.__taxa || 0).replace(',', '.')) || 0;
