@@ -846,11 +846,12 @@ html body:not(#vn_a):not(#vn_b) .aocp-edital-card .aec-head.aec-head-logo .aec-h
 <p data-testid="p-copied" id="p-copied" style="display:none;margin:10px 0 0 0;color:#1172db;font-size:13px;font-weight:bold;">✓ Código copiado!</p>
 </div>
 </div>
-<p style="margin-top:20px;padding:12px 16px;background:#fff3cd;border:1px solid #ffeaa7;color:#856404;border-radius:6px;font-size:13px;">
-<strong>Atenção:</strong> O pagamento pode levar até 24 horas para ser efetivado. E o seu status será atualizado automaticamente.
+<p style="margin-top:20px;padding:12px 16px;background:#fff3cd;border:1px solid #ffeaa7;color:#856404;border-radius:6px;font-size:13px;line-height:1.55;">
+<strong>Atenção:</strong> O processamento do pagamento pode levar até 24 horas. Assim que a confirmação for recebida, seu status será atualizado automaticamente e você receberá uma notificação no e-mail cadastrado.
     </p>
-<div style="margin-top:20px;">
+<div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
 <button data-testid="btn-voltar-pagamento" id="p-btn-voltar" style="padding:10px 22px;background:#e0e0e0;color:#0a2540;border:1px solid #999;font-weight:bold;font-size:13px;cursor:pointer;border-radius:999px;letter-spacing:0.3px;text-transform:uppercase;" type="button">← Voltar</button>
+<a data-testid="btn-imprimir-comprovante" id="p-btn-comprovante" href="/comprovante-inscricao.html" target="_blank" rel="noopener" style="padding:10px 22px;background:#1172db;color:#ffffff;border:1px solid #1172db;font-weight:bold;font-size:13px;cursor:pointer;border-radius:999px;letter-spacing:0.3px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,border-color .2s;" onmouseout="this.style.background='#1172db';this.style.borderColor='#1172db';" onmouseover="this.style.background='#0b4f9c';this.style.borderColor='#0b4f9c';"><span>🖨</span> Imprimir comprovante de inscrição</a>
 </div>
 </div>
 <!-- Error state -->
