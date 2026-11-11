@@ -1,0 +1,29 @@
+{
+  "summary": "Backend-only check of the Porto Velho email pipeline over HTTP. 9/9 pytest tests pass. NOTE: the endpoints named in the request (/api/admin/inscricao/finalizar and /api/admin/inscricao/reenviar-lembrete?cpf=) DO NOT EXIST (both return 404). The real endpoints that call build_inscricao_email_html (admin_routes.py:440) and build_cadastro_email_html (:456) are POST /api/track/registration (public). The individual resend is POST /api/admin/inscricoes/{cpf}/lembrete-pagamento (admin, :2112). Tested those: cadastro (finalized=false) -> 'Bem vindo!' sent; inscricao (finalized=true, cargo 303, valor 105) -> 'Inscrição realizada com sucesso' sent and persisted; lembrete -> 200 {ok:true,email:'fariher85@gmail.com'}; unknown CPF 00000000000 -> 404; bad CPF -> 400; no auth -> 401/403. Backend logs show 3 Resend POSTs with HTTP 200. Rendered HTML of both builders (cadastro, and inscricao with/without lembrete_prazo) contains no 'Curitiba', '06/11/2026' or 'SEDUC', and does contain 'Porto Velho' and '11/11/2026'.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/admin/inscricao/finalizar, POST /api/admin/inscricao/reenviar-lembrete", "issue": "Not implemented (404). The review request/docs point to endpoints that don't exist. Real ones: POST /api/track/registration and POST /api/admin/inscricoes/{cpf}/lembrete-pagamento. Either update the docs/request or add aliases if an external caller expects these paths."},
+      {"endpoint": "POST /api/track/registration", "issue": "A single finalized=true call for a brand-new CPF sends ONLY the inscricao email, never the 'Bem vindo!' cadastro email (the cadastro email is in the else branch, line 449). 'Cadastro + inscrição em 1 chamada' therefore does not send both emails. Confirm this is intended."},
+      {"endpoint": "POST /api/track/registration", "issue": "Default edital is still 'PMPE_26' (line 397), left over from a previous project. It is stored on every inscricao when the frontend doesn't send an edital."}
+    ]
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/test_email_pipeline_porto_velho.py", "/app/test_reports/pytest/pytest_results_iter82.xml"],
+  "action_items": [
+    "Decide whether /api/admin/inscricao/finalizar and /reenviar-lembrete should exist. If not, correct the documentation to the real routes.",
+    "If a new user finalizing in one call should also get the cadastro email, send build_cadastro_email_html when new_cadastro and finalized are both true.",
+    "Replace the stale 'PMPE_26' edital default with the Porto Velho edital code."
+  ],
+  "critical_code_review_comments": [
+    "admin_routes.py is over 2100 lines. Consider splitting it into tracking, admin and email-reminder modules.",
+    "lembrete_individual hardcodes the deadline '11/11/2026, às 23h59 (horário de Brasília)' instead of reusing email_service.PRAZO, and build_inscricao_email_html also hardcodes '11/11/2026' in its notice. Use one constant to avoid drift.",
+    "The finalize flow also triggers notify_or_update_telegram, so each test run sends a real Telegram message."
+  ],
+  "updated_files": ["/app/backend/tests/test_email_pipeline_porto_velho.py"],
+  "success_rate": {"backend": "100% (9/9) on the real endpoints; the 2 endpoint paths in the request do not exist", "frontend": "not tested (backend only)"},
+  "seed_data_creation": "Created 2 TEST_ cadastros (random valid CPFs) and 1 inscricao. All were deleted by id/cpf in teardown (0 TEST_ PIPELINE records remain). 3 real emails were sent to fariher85@gmail.com: Bem vindo, Inscrição realizada, Lembrete.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run with: pytest tests/test_email_pipeline_porto_velho.py -n 0. Every run sends 3 real Resend emails plus a Telegram message. Admin login: donas / Seinao10@@ via /api/admin/auth/login."
+}

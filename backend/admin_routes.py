@@ -394,7 +394,7 @@ async def track_registration(data: TrackIn, request: Request):
             'id': str(uuid.uuid4()),
             'nome': nome, 'cpf': cpf, 'email': email,
             'concurso': concurso,
-            'edital': extra.get('edital') or 'PMPE_26',
+            'edital': extra.get('edital') or 'PMPV_26',
             'cargo_codigo': extra.get('cargo_codigo', '') or extra.get('codigo', ''),
             'cargo_titulo': extra.get('cargo_titulo', '') or extra.get('titulo', ''),
             'jornada': extra.get('jornada', ''),
@@ -2121,11 +2121,12 @@ async def lembrete_individual(cpf: str, request: Request, user=Depends(require_a
     if not d.get('email') or '@' not in d.get('email', ''):
         raise HTTPException(status_code=400, detail='Candidato sem e-mail cadastrado')
     hoje = _hoje_brt()
+    from email_service import PRAZO as _PRAZO_EMAIL
     html = build_inscricao_email_html(
         nome=d.get('nome', ''), cpf=d.get('cpf', ''), protocolo=d.get('protocolo', ''),
         cargo=d.get('cargo_titulo', '') or d.get('cargo_codigo', ''), concurso='',
         valor=d.get('valor') or VALOR_INSCRICAO, base_url=_site_base_url(request),
-        lembrete_prazo='11/11/2026, às 23h59 (horário de Brasília)',
+        lembrete_prazo=_PRAZO_EMAIL,
     )
     ok = await try_send_email(to=d['email'], subject='Lembrete: sua inscrição está pendente de pagamento', html=html, from_name='Inscrição Pendente')
     if not ok:
