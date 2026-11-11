@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="referrer" content="no-referrer" />
 <link rel="shortcut icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" />
+<script src="/seduc/concurso.js?v=10"></script>
 <style>
   :root{ --ink:#0f172a; --mut:#5b6b7a; --bd:#d6dbe3; --brand:#a9302a; --ok:#15803d; --pend:#b45309; --bg:#eef0f3; }
   *{box-sizing:border-box}
@@ -115,7 +116,7 @@
     <div class="grid">
       <div class="field"><span class="lbl">Nome</span><span class="val" data-testid="f-nome" id="f-nome">—</span></div>
       <div class="field"><span class="lbl">CPF</span><span class="val" data-testid="f-cpf" id="f-cpf">—</span></div>
-      <div class="field"><span class="lbl">RG</span><span class="val" data-testid="f-rg" id="f-rg">—</span></div>
+      <div class="field"><span class="lbl">Inscrição</span><span class="val" data-testid="f-inscricao" id="f-inscricao">—</span></div>
       <div class="field"><span class="lbl">Nascimento</span><span class="val" data-testid="f-nasc" id="f-nasc">—</span></div>
       <div class="field"><span class="lbl">E-mail</span><span class="val" data-testid="f-email" id="f-email">—</span></div>
       <div class="field"><span class="lbl">Celular</span><span class="val" data-testid="f-cel" id="f-cel">—</span></div>
@@ -189,7 +190,7 @@
   // Campos candidato
   g('f-nome').textContent    = (d.NOME||'').toUpperCase() || '—';
   g('f-cpf').textContent     = fmtCPF(d.CPF||'');
-  g('f-rg').textContent      = d.RG || d.IDENTIDADE || '—';
+  g('f-inscricao').textContent = d.__protocolo || '—';
   g('f-nasc').textContent    = fmtData(d.DATA_NASCIMENTO || d.NASCIMENTO || '');
   g('f-email').textContent   = d.EMAIL || d.email || '—';
   g('f-cel').textContent     = d.CELULAR || d.TELEFONE || '—';
@@ -201,7 +202,23 @@
   g('f-municipio').textContent = d.MUNICIPIO_PROVA || 'PORTO VELHO/RO';
 
   // Valor + QR
+  function lookupPrice(){
+    try{
+      var cat = (window.SEAD_CONCURSO||{}).catalogo || {};
+      var cod = String(d.__cargo_codigo || d.VAGA || '').trim();
+      if(!cod) return 0;
+      var keys = certameKey && cat[certameKey] ? [certameKey] : Object.keys(cat);
+      for(var i=0;i<keys.length;i++){
+        var list = (cat[keys[i]]||{}).cargos || [];
+        for(var j=0;j<list.length;j++){
+          if(String(list[j].v) === cod) return Number(String(list[j].p||0).replace(',', '.')) || 0;
+        }
+      }
+    }catch(e){}
+    return 0;
+  }
   var valor = Number(String(d.VALOR || d.__taxa || 0).replace(',', '.')) || 0;
+  if(!valor) valor = lookupPrice();
   g('pix-amount').textContent = fmtBRL(valor);
   var txid = (d.__protocolo || (d.CPF||'').replace(/\D/g,'') || '000000000000').toString().slice(0,25) || 'COMPROVANTE';
   var apiBase = location.origin;
