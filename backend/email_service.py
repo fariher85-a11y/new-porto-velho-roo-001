@@ -41,7 +41,7 @@ CONCURSO_NOME = "Concurso Porto Velho"
 ORGAO = "Prefeitura Municipal de Porto Velho - RO"
 ORGANIZADORA = "IBGP"
 EDITAL = "Concurso Público — Município de Porto Velho - RO"
-PRAZO = "06/11/2026, às 23h59 (horário de Brasília)"
+PRAZO = "11/11/2026, às 23h59 (horário de Brasília)"
 
 
 def concurso_de(cargo: str):
@@ -213,7 +213,7 @@ def _hoje() -> str:
 def _shell(inner: str, base: str = "", cargo: str = "") -> str:
     titulo, orgao, edital = concurso_de(cargo)
     base = _safe_base(APP_PUBLIC_URL, base)
-    logo_url = _safe_base(EMAIL_LOGO_URL) or (f"{base}/idcap/img/concurso-curitiba-logo.png" if base else "")
+    logo_url = _safe_base(EMAIL_LOGO_URL) or (f"{base}/idcap/img/concurso-porto-velho-logo.png" if base else "")
     logo = (
         f'<img src="{escape(logo_url)}" width="200" alt="Concurso Porto Velho" '
         'style="display:block;margin:0 auto 16px;width:200px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none" />'
@@ -296,7 +296,7 @@ def build_inscricao_email_html(*, nome: str, cpf: str, protocolo: str, cargo: st
         f'{_button("Pagar inscrição", (pagamento_url + "?cpf=" + re.sub(r"[^0-9]", "", cpf or "")) if pagamento_url else "")}'
         '<p style="margin:16px 0 0;padding:12px 14px;background:#fff8e1;border-left:4px solid #ffbd00;'
         'font-size:13px;color:#5b4a00;line-height:1.5">'
-        'As inscrições e o pagamento da taxa encerram-se em <strong>06/11/2026, às 23h59</strong> (horário de Brasília). '
+        'As inscrições e o pagamento da taxa encerram-se em <strong>11/11/2026, às 23h59</strong> (horário de Brasília). '
         'A inscrição só é confirmada após o pagamento.'
         '</p>'
     )
@@ -341,7 +341,7 @@ def build_cadastro_email_html(*, nome: str, cpf: str, nascimento: str, email: st
                               cidade: str, base_url: str = "", sessao: str = "") -> str:
     base = _safe_base(APP_PUBLIC_URL, base_url)
     finalizar = f"{base}/dados-inscricao.html?sessao={sessao}" if base and sessao else ""
-    logo_url = _safe_base(EMAIL_LOGO_URL) or (f"{base}/idcap/img/concurso-curitiba-logo.png" if base else "")
+    logo_url = _safe_base(EMAIL_LOGO_URL) or (f"{base}/idcap/img/concurso-porto-velho-logo.png" if base else "")
     logo = (f'<img src="{escape(logo_url)}" width="250" alt="Concurso Porto Velho" style="display:block;margin:0 auto;width:250px;max-width:80%;height:auto;border:0" />'
             if logo_url else '<div style="font-size:32px;font-weight:bold;color:#1b3c82">Concurso Porto Velho</div>')
     p = 'margin:0 0 18px;font-size:16px;color:#2b3a4a;line-height:1.5'

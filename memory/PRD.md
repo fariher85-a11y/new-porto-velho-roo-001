@@ -18,6 +18,13 @@ Ver `/app/memory/test_credentials.md`.
 - Cor primária: Vermelho IBGP `#a9302a`
 
 ## Alterações recentes
+### 11/Nov/2026 — Templates de e-mail Resend atualizados (Curitiba → Porto Velho)
+- Brasão físico: `/app/frontend/public/idcap/img/concurso-porto-velho-logo.png` criado a partir de `/assets/home/img1.webp` (que já era PNG do brasão oficial de Porto Velho).
+- `email_service.py`: `_shell()` e `build_cadastro_email_html()` passaram a referenciar `concurso-porto-velho-logo.png`.
+- `PRAZO` corrigido de `06/11/2026` para `11/11/2026, às 23h59 (horário de Brasília)` — alinhado ao período em concurso.js.
+- Hardcoded `06/11/2026` dentro de `build_inscricao_email_html` e no reenvio admin (`admin_routes.py` linha 2128) também atualizados para `11/11/2026`.
+- Validado por renderização HTML dos 3 templates (cadastro, inscrição e reenvio/lembrete): zero "Curitiba", brasão correto de Porto Velho, data correta, textos "Concurso Porto Velho" / "Prefeitura Municipal de Porto Velho - RO" em header e footer.
+
 ### 10/Nov/2026 — Destinação de Vagas (dados-inscricao + confirmacao)
 - Substituído o checkbox único "É optante pela reserva de vagas" por fieldset **Destinação de Vagas** com 6 checkboxes independentes:
   `VAGA_PCD`, `VAGA_NEGROS`, `VAGA_QUILOMBOLA`, `VAGA_INDIGENA`, `VAGA_TRANS`, `FUNCAO_JURADO` (jurado para desempate — Art. 440 CPP).
