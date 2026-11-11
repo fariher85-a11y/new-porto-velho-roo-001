@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only DOM/visual testing of /comprovante-inscricao.html for the 2 reported bugs: (1) RG field replaced by 'Inscrição' showing __protocolo, (2) PIX amount fallback via concurso.js catalog lookupPrice() when localStorage VALOR is absent. Planted localStorage same-origin then reloaded. All 5 scenarios PASS (5/5).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_results": [
+    {"case": "529 Educacao, no VALOR", "f-rg_exists": false, "f-inscricao": "2026532611", "pix-amount": "R$ 130,00", "qr_naturalWidth": 360, "result": "PASS"},
+    {"case": "303 Saude (ACS)", "pix-amount": "R$ 105,00", "qr": "loaded", "result": "PASS"},
+    {"case": "343 Educacao (Secretaria Escolar)", "pix-amount": "R$ 90,00", "qr": "loaded", "result": "PASS"},
+    {"case": "603 Saude (Medico)", "pix-amount": "R$ 140,00", "qr": "loaded", "result": "PASS"},
+    {"case": "VALOR=105.00 present overrides lookup (cargo 529)", "pix-amount": "R$ 105,00", "result": "PASS"}
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Both bugs correctly fixed. #f-rg no longer in DOM; #f-inscricao renders d.__protocolo. lookupPrice() correctly reads window.SEAD_CONCURSO.catalogo scoped by concurso_sel key with fallback to all keys. VALOR precedence works (valor set first, lookup only if falsy).",
+    "Minor: networkidle never settles on this page (likely keepalive POST /api/track/pix-downloaded) — future tests should use wait_until='domcontentloaded' + fixed timeout, not 'networkidle'."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100%"},
+  "seed_data_creation": "None. localStorage planted in-browser only; no DB writes made by test (track POST is app side-effect).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "comprovante-inscricao.html verified: RG->Inscricao(protocolo) and PIX price catalog lookup all working across editais 24/25 and VALOR override. QR img loads from /api/pix/qr.png (naturalWidth 360)."
+}
